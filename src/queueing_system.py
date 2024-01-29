@@ -39,10 +39,12 @@ class Queue:
     def run_simulation(self) -> None:
         self.next_arrival_time = self.arrival_time()
         time = 0
+        count = 1
+
+        print(self.servers_data)
+        print(self.next_arrival_time)
 
         while time <= self.simulation_time:
-            print(self.servers_data)
-            print(self.next_arrival_time)
             index_next_free_server = np.argmin(self.servers_data[1:]) + 1
             next_free_server = self.servers_data[index_next_free_server]
 
@@ -50,8 +52,6 @@ class Queue:
 
             if self.next_arrival_time < next_free_server:
                 time += self.next_arrival_time
-
-                self.next_arrival_time = self.arrival_time()
 
                 if self.servers_data[0] == self.num_servers:
                     self.servers_data[0] = self.num_servers
@@ -73,6 +73,8 @@ class Queue:
                         self.servers_data[i] -= self.next_arrival_time
                     
                     self.servers_data[free_server_index] = self.service_time()
+                
+                self.next_arrival_time = self.arrival_time()
 
 
             elif self.next_arrival_time > next_free_server:
@@ -102,3 +104,11 @@ class Queue:
                         self.servers_data[i] -= next_free_server
 
                     self.servers_data[index_next_free_server] = float('inf')
+            
+
+            print(f'iteration: {count}')
+            print(self.servers_data)
+            print(self.next_arrival_time)
+            print(self.queue_len)
+            print()
+            count += 1

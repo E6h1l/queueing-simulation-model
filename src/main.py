@@ -1,7 +1,7 @@
 import queueing_system
 
 def run():
-    test = queueing_system.Queue(100, 1, 1, 20)
+    test = queueing_system.Queue(100, 5, 10, 11)
     test.run_simulation()
 
 
